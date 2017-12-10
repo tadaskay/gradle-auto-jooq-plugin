@@ -17,6 +17,12 @@ open class PostgresUp : DefaultTask() {
         val containerId = postgresContainer()
         docker.startContainer(containerId)
         ext.containerId = containerId
+        val port = docker.inspectContainer(containerId).networkSettings().ports()
+            ?.values?.flatten()?.first()?.hostPort()?.toInt()
+        ext.port = port
+
+        ext.username = "postgres"
+        ext.password = ""
     }
 
     private fun postgresContainer(): String {
