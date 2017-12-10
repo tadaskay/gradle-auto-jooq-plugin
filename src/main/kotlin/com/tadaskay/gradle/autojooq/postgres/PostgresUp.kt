@@ -1,4 +1,4 @@
-package com.tadaskay.gradle.autojooq
+package com.tadaskay.gradle.autojooq.postgres
 
 import com.spotify.docker.client.messages.ContainerConfig
 import com.spotify.docker.client.messages.HostConfig

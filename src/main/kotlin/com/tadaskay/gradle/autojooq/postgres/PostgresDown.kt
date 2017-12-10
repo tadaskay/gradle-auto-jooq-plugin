@@ -1,4 +1,4 @@
-package com.tadaskay.gradle.autojooq
+package com.tadaskay.gradle.autojooq.postgres
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction

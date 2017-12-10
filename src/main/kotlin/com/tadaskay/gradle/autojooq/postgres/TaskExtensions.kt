@@ -1,6 +1,7 @@
-package com.tadaskay.gradle.autojooq
+package com.tadaskay.gradle.autojooq.postgres
 
 import com.spotify.docker.client.DefaultDockerClient
+import com.tadaskay.gradle.autojooq.AutoJooqExtension
 import org.gradle.api.DefaultTask
 
 fun DefaultTask.docker(): DefaultDockerClient {
