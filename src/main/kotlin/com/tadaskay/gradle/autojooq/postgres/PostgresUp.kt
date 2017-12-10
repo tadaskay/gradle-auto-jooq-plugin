@@ -3,6 +3,7 @@ package com.tadaskay.gradle.autojooq.postgres
 import com.spotify.docker.client.messages.ContainerConfig
 import com.spotify.docker.client.messages.HostConfig
 import com.spotify.docker.client.messages.PortBinding
+import com.tadaskay.gradle.autojooq.config.pluginExt
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

@@ -1,5 +1,6 @@
 package com.tadaskay.gradle.autojooq.postgres
 
+import com.tadaskay.gradle.autojooq.config.pluginExt
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

@@ -1,5 +1,6 @@
 package com.tadaskay.gradle.autojooq
 
+import com.tadaskay.gradle.autojooq.config.AutoJooqExtension
 import com.tadaskay.gradle.autojooq.postgres.PostgresDown
 import com.tadaskay.gradle.autojooq.postgres.PostgresUp
 import org.gradle.api.Plugin
