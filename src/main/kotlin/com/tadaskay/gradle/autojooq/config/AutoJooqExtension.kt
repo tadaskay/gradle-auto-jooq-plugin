@@ -6,7 +6,7 @@ open class AutoJooqExtension {
 
     var changeLogFile = "src/main/resources/db/changelog/db.changelog-master.xml"
     fun url() : String {
-        return "jdbc:postgresql://localhost:$port/public"
+        return "jdbc:postgresql://localhost:$port/postgres"
     }
     lateinit var username: String
     lateinit var password: String

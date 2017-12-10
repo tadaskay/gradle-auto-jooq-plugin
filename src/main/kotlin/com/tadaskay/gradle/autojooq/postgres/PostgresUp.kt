@@ -1,10 +1,12 @@
 package com.tadaskay.gradle.autojooq.postgres
 
+import com.spotify.docker.client.DockerClient
 import com.spotify.docker.client.messages.ContainerConfig
 import com.spotify.docker.client.messages.HostConfig
 import com.spotify.docker.client.messages.PortBinding
 import com.tadaskay.gradle.autojooq.config.pluginExt
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 open class PostgresUp : DefaultTask() {
@@ -23,6 +25,8 @@ open class PostgresUp : DefaultTask() {
 
         ext.username = "postgres"
         ext.password = ""
+
+        waitForHealth()
     }
 
     private fun postgresContainer(): String {
@@ -37,9 +41,41 @@ open class PostgresUp : DefaultTask() {
             .image("postgres:10.0-alpine")
             .exposedPorts("5432")
             .hostConfig(hostConfig)
-            .build())
+            .build()
+        )
 
         return postgresContainer.id()!!
+    }
+
+    private fun waitForHealth() {
+        logger.info("Waiting for postgres healthcheck...")
+
+        val createHealthCheckCommand = fun(): String {
+            return docker.execCreate(
+                ext.containerId,
+                arrayOf("pg_isready", "-U", "postgres"),
+                DockerClient.ExecCreateParam.attachStdout(),
+                DockerClient.ExecCreateParam.attachStderr()
+            ).id()
+        }
+
+        var ready: Boolean
+        var retries = 50
+        do {
+            val output = docker.execStart(createHealthCheckCommand())
+            val execOut = output.readFully()
+            logger.info(execOut)
+
+            ready = execOut.contains("accepting")
+            if (!ready) {
+                Thread.sleep(100)
+                retries -= 1
+            }
+        } while (!ready && retries > 0)
+
+        if (!ready) {
+            throw GradleException("Failed to start postgres container")
+        }
     }
 }
 
