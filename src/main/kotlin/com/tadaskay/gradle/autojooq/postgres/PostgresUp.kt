@@ -69,9 +69,8 @@ open class PostgresUp : DefaultTask() {
             ready = execOut.contains("accepting")
             if (!ready) {
                 Thread.sleep(100)
-                retries -= 1
             }
-        } while (!ready && retries > 0)
+        } while (!ready && retries-- > 0)
 
         if (!ready) {
             throw GradleException("Failed to start postgres container")
