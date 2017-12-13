@@ -17,15 +17,17 @@ import org.gradle.kotlin.dsl.task
 open class AutoJooqPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        project.extensions.create(
+        val ext = project.extensions.create(
             "autoJooq",
-            AutoJooqExtension::class.java
+            AutoJooqExtension::class.java,
+            project
         )
 
         val autoJooq = project.task("autoJooq", DefaultTask::class) {
         }
 
         val postgresUp = project.task("autoJooqPostgresUp", PostgresUp::class) {
+            provideDockerImage(ext.dockerImageProvider)
         }
         val postgresDown = project.task("autoJooqPostgresDown", PostgresDown::class) {
         }

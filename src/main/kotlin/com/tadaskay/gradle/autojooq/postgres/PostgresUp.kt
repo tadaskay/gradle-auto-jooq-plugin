@@ -7,12 +7,17 @@ import com.spotify.docker.client.messages.PortBinding
 import com.tadaskay.gradle.autojooq.config.pluginExt
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskAction
+import org.gradle.kotlin.dsl.property
 
 open class PostgresUp : DefaultTask() {
 
     private val docker = docker()
     private val ext = pluginExt()
+
+    private val dockerImage = project.objects.property<String>()
+    fun provideDockerImage(dockerImage: Provider<String>) = this.dockerImage.set(dockerImage)
 
     @TaskAction
     fun postgresUp() {
@@ -38,7 +43,7 @@ open class PostgresUp : DefaultTask() {
             .build()
 
         val postgresContainer = docker.createContainer(ContainerConfig.builder()
-            .image("postgres:10.0-alpine")
+            .image(dockerImage.get())
             .exposedPorts("5432")
             .hostConfig(hostConfig)
             .build()
