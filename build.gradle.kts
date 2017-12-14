@@ -20,7 +20,9 @@ gradlePlugin {
 
 publishing {
     repositories {
-        maven(url = "build/repository")
+        maven(url = "build/repository") {
+            name = "test"
+        }
     }
 }
 
