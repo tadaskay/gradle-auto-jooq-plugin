@@ -23,7 +23,7 @@ This plugin seamlessly integrates jOOQ into your [Gradle](https://gradle.org/)-b
 ```groovy
 plugins {
     id 'java' // or id 'groovy'
-    id 'com.tadaskay.auto-jooq' version '1.0'
+    id 'com.tadaskay.auto-jooq' version '1.0.0'
 }
 
 jooq {
@@ -37,6 +37,7 @@ jooq {
 }
 
 dependencies {
+    compile 'org.jooq:jooq:3.10.1'
     jooqRuntime 'org.postgresql:postgresql:42.1.4'
 }
 ```
