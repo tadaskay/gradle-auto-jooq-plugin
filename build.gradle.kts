@@ -7,12 +7,12 @@ plugins {
 }
 
 group = "com.tadaskay.gradle"
-version = "1.0"
+version = "1.0.0"
 
 gradlePlugin {
     (plugins) {
         "autoJooq" {
-            id = "auto-jooq"
+            id = "com.tadaskay.auto-jooq"
             implementationClass = "com.tadaskay.gradle.autojooq.AutoJooqPlugin"
         }
     }
