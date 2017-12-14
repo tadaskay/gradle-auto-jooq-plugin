@@ -35,6 +35,8 @@ open class PostgresUp : DefaultTask() {
     }
 
     private fun postgresContainer(): String {
+        docker.pull(dockerImage.get())
+
         val portBindings = mapOf<String, List<PortBinding>>(
             "5432" to listOf(PortBinding.randomPort("0.0.0.0"))
         )
